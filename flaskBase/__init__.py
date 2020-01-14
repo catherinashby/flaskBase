@@ -5,17 +5,13 @@ from flaskBase.config import Config
 
 def create_app(test_config=None):
     # create and configure the app
-    rp = os.environ.get('ROOT_PATH') or os.path.dirname( os.getcwd() )
-    ip = os.environ.get('INSTANCE_PATH') or os.path.join(rp,'instance')
+    rp = os.environ.get('FLASKBASE_ROOT') or os.path.dirname( os.getcwd() )
+    ip = os.environ.get('FLASKBASE_INSTANCE') or os.path.join(rp,'instance')
     app = Flask( __name__.split('.')[0]
-                ,root_path=rp
                 ,instance_path=ip
                 ,instance_relative_config=True
                  )
     app.config.from_object(Config)
-    app.config.from_mapping(
-        DATABASE=os.path.join(app.instance_path, 'flaskBase.db3'),
-    )
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

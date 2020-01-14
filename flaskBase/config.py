@@ -1,13 +1,13 @@
 import os
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+rp = os.environ.get('FLASKBASE_ROOT') or os.path.dirname( os.getcwd() )
+ip = os.environ.get('FLASKBASE_INSTANCE') or os.path.join(rp,'instance')
 
 class Config(object):
     #
     #   ENV = 'production'
     #   DEBUG = False
     #   TESTING = False
-    #   PROPAGATE_EXCEPTIONS = None
     #   TRAP_HTTP_EXCEPTIONS = False
     #   SECRET_KEY = None
     #   SESSION_COOKIE_NAME = 'session'
@@ -32,9 +32,10 @@ class Config(object):
     #   MAX_COOKIE_SIZE = 4093
 
     #   these values are enabled in DEBUG mode
+    #   PROPAGATE_EXCEPTIONS = None
     #   PRESERVE_CONTEXT_ON_EXCEPTION = None
     #   TRAP_BAD_REQUEST_ERRORS = None
     #   TEMPLATES_AUTO_RELOAD = None
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(32)
-    DATABASE = os.environ.get('DATABASE')
+    DATABASE = os.environ.get('DATABASE') or os.path.join(ip, 'flaskBase.db3')
