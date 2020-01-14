@@ -5,5 +5,5 @@ from flaskBase import app
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template( 'frontpage.html', user={} )
+    return render_template( 'frontpage.html' )
 

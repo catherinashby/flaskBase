@@ -8,8 +8,8 @@
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
-    <title>{% block title %}
-        {{ site_name }}{% endblock title %}</title>
+    <title>{% block title %}{{ site_name }}{% endblock title %}</title>
+    <meta name="template" content="{{ self._TemplateReference__context.name }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='css/minimum.css' ) }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='css/style.css' ) }}" />
     <style type="text/css" >
@@ -22,6 +22,7 @@
   <body>
     <header class="group">{% block header %}
       <div class="personalization">{% block personalization %}
+      {% if user is defined %}
       <div>{% if user.id %}<label>Logged In As:</label>{% endif %}
       <span class="firstname">{{ user.first_name|default('') }}</span>
       <span class="lastname">{{ user.last_name|default('') }}</span></div>
@@ -30,6 +31,8 @@
       <a href="{# url_for( 'index' ) #}">Register</a><br/>
       <a href="{# url_for( 'login' ) #}">Log In</a>
       {% endif %}</div>
+      {% else %}<span class="icon" >&#128100;</span>
+      {% endif %}
       {% endblock personalization %}</div>
       <div class="branding">{% block branding %}
       <a href="{{ url_for( 'index' ) }}">
