@@ -1,0 +1,6 @@
+# always save text files with LF, not CRLF
+* text eol=lf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary

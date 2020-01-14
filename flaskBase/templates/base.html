@@ -1,0 +1,55 @@
+{% set site_name = "flaskBase" %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-script-type" content="text/javascript" />
+    <meta http-equiv="content-language" content="en">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <title>{% block title %}
+        {{ site_name }}{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='css/minimum.css' ) }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='css/style.css' ) }}" />
+    <style type="text/css" >
+    header a { text-decoration: none; }
+    </style>
+    <style type="text/css" >{% block styles %}{% endblock %}</style>
+    <script src="{{ url_for( 'static', filename='js/starter.js' ) }}"></script>
+    {% block scripts %}{% endblock %}
+  </head>
+  <body>
+    <header class="group">{% block header %}
+      <div class="personalization">{% block personalization %}
+      <div>{% if user.id %}<label>Logged In As:</label>{% endif %}
+      <span class="firstname">{{ user.first_name|default('') }}</span>
+      <span class="lastname">{{ user.last_name|default('') }}</span></div>
+      <div class="logger">{% if user.id %}
+      <a>Log Out</a>{% else %}
+      <a href="{# url_for( 'index' ) #}">Register</a><br/>
+      <a href="{# url_for( 'login' ) #}">Log In</a>
+      {% endif %}</div>
+      {% endblock personalization %}</div>
+      <div class="branding">{% block branding %}
+      <a href="{{ url_for( 'index' ) }}">
+      <span class="icon" >&#8251;</span><span class="text">{{site_name}}</span>
+      </a>
+      {% endblock branding %}</div>
+    {% endblock header %}</header>
+    <div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+      <hr/>
+    {% endif %}
+    {% endwith %}
+    </div>
+    <main>{% block contents %}{% endblock contents %}</main>
+    <footer>{% block footer %}{% endblock footer %}</footer>
+  </body>
+</html>
