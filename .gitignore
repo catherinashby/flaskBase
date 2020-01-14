@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# specifics
+# Windows
+*.cmd
+# environment
+py38
+# pyscripter stuff
+*.psproj
