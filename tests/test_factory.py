@@ -1,6 +1,4 @@
-from flask     import url_for
 from flaskBase import create_app
-
 
 def test_config():
     assert not create_app().testing
@@ -8,4 +6,4 @@ def test_config():
 
 
 def test_index(client):
-    assert client.get(url_for('index')).status_code == 200
+    assert client.get('index').status_code == 200

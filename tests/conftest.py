@@ -3,6 +3,8 @@ import pytest
 
 @pytest.fixture
 def app():
-    app = create_app()
-    return app
+    app = create_app({
+        'TESTING': True
+    })
 
+    return app

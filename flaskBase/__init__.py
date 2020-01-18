@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 from flaskBase.config import Config
 
 def create_app(test_config=None):
@@ -26,9 +26,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    @app.route('/')
+    @app.route('/index')
+    def index():
+        return render_template( 'frontpage.html' )
+
     return app
 
 app = create_app()
-
-import flaskBase.routes
-
