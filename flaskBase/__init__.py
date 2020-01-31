@@ -1,7 +1,25 @@
-import os
-
+import os, logging, json
+from logging.config import dictConfig
 from flask import Flask, render_template
 from flaskBase.config import Config
+
+
+def setup_logging(
+    default_path='logging.json',
+    default_level=logging.INFO,
+    env_key='FLASKBASE_LOG_CFG'
+):  ## set up logging configuration
+
+    path = default_path
+    value = os.getenv(env_key, None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            config = json.load(f)
+        dictConfig(config)
+        return "configured"
+    return "unchanged"
 
 def create_app(test_config=None):
     # create and configure the app
@@ -33,4 +51,5 @@ def create_app(test_config=None):
 
     return app
 
+setup_logging()
 app = create_app()
