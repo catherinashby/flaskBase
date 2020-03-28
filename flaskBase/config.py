@@ -39,3 +39,4 @@ class Config(object):
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(32)
     DATABASE = os.environ.get('DATABASE') or os.path.join(ip, 'flaskBase.db3')
+    MIGRATIONS_DIR = os.environ.get('FLASKBASE_MIGRATIONS') or os.path.join(rp,'migrations')

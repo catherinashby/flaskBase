@@ -2,7 +2,7 @@ import os, logging, json
 from logging.config import dictConfig
 from flask import Flask, render_template
 from flaskBase.config import Config
-
+from flaskBase.db import init_app as db_init
 
 def setup_logging(
     default_path='logging.json',
@@ -43,6 +43,8 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    db_init(app)
 
     @app.route('/')
     @app.route('/index')
